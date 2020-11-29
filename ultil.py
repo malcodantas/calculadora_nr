@@ -16,7 +16,15 @@ NPRB_TABLE=pd.DataFrame({
 })
 
 def calcular(DIRECTION,MODULATION,BARRIES,SCALING_FACTOR,TOTAL_BW,CARRIER_SPACING):
-    print(DIRECTION,MODULATION,BARRIES,SCALING_FACTOR,TOTAL_BW,CARRIER_SPACING)
+    carrier=DIRECTION.get()
+    modulation=MODULATION.get()
+    barries=BARRIES.get()
+    scaling_factor=SCALING_FACTOR.get()
+    total_bw=TOTAL_BW.get()
+    carrier_spacing=CARRIER_SPACING.get()
+    
+
+
 
 
 def get_bw_prb(mi,total_bw):
