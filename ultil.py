@@ -15,8 +15,8 @@ NPRB_TABLE=pd.DataFrame({
     "100m":[None,273,135]
 })
 
-def calcular(msg):
-    print(msg)
+def calcular(DIRECTION,MODULATION,BARRIES,SCALING_FACTOR,TOTAL_BW,CARRIER_SPACING):
+    print(DIRECTION,MODULATION,BARRIES,SCALING_FACTOR,TOTAL_BW,CARRIER_SPACING)
 
 
 def get_bw_prb(mi,total_bw):
