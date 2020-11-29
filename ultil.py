@@ -14,14 +14,11 @@ NPRB_TABLE=pd.DataFrame({
     "90m":[None,245,121],
     "100m":[None,273,135]
 })
+# def calcular(direction,carries,mimo,modulation,scaling_factor,total_bw,carrier_spacing):
 
-def calcular(DIRECTION,MODULATION,BARRIES,SCALING_FACTOR,TOTAL_BW,CARRIER_SPACING):
-    carrier=DIRECTION.get()
-    modulation=MODULATION.get()
-    barries=BARRIES.get()
-    scaling_factor=SCALING_FACTOR.get()
-    total_bw=TOTAL_BW.get()
-    carrier_spacing=CARRIER_SPACING.get()
+def calcular(**kwargs):
+    print(kwargs)
+    # get_tp(1,2,6,0.14,1,30,100)
     
 
 
@@ -50,7 +47,7 @@ def get_mi(carrier_spacing):
     mi = math.log(carrier_spacing/15)/math.log(2)
     return mi
 
-def get_tp(carries,mimo,nbit_modulation,overhead,scaling_factor,nPRB,carrier_spacing,total_bw):
+def get_tp(carries,mimo,nbit_modulation,overhead,scaling_factor,carrier_spacing,total_bw):
     """
         carries : Numero de portadoras
         mimo : Escala do mimo Mimo 2x2 = 2 , Mimo 4x4 = 4

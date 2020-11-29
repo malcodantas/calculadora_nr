@@ -42,12 +42,28 @@ tk.Radiobutton(paramFrame,
               variable=DIRECTION, 
               value='UP').grid(row=1,column=0)
 
-tk.Radiobutton(paramFrame, 
+default_rb_direction=tk.Radiobutton(paramFrame, 
               text="Downlink",
               padx = 20, 
               variable=DIRECTION, 
-              value='DOWN').grid(row=2,column=0)
+              value='DOWN')
 
+default_rb_direction.grid(row=2,column=0)
+default_rb_direction.select()
+
+################ MIMO 
+MIMO = tk.StringVar()
+# label_mimo=tk.Label(paramFrame,font='Times',text="Carrier spacing")
+mimo_select = ttk.Combobox(paramFrame,state="readonly",values=[
+                                                    "MIMO 1x1", 
+                                                    "MIMO 2x2",
+                                                    "MIMO 3x3",
+                                                    "MIMO 4x4",
+                                                    "MIMO 5x5", 
+                                                    "MIMO 6x6",
+                                                    "MIMO 7x7",
+                                                    "MIMO 8x8"] ,textvariable=MIMO)
+mimo_select.grid(row=3,column=0)
 
 ################ MODULATION
 label_modulation=tk.Label(paramFrame,font='Times',text="Modulação")
@@ -64,11 +80,11 @@ modulation_selected.grid(row=1,column=1) #posição dentro do paramFrame
 
 
 ############# PORTADORAS
-label_num_portadoras=tk.Label(paramFrame,font='Times',text="Barries")
+label_num_portadoras=tk.Label(paramFrame,font='Times',text="Carries")
 label_num_portadoras.grid(row=2,column=1)
-BARRIES = tk.IntVar()
-num_berries = ttk.Spinbox(paramFrame, from_=1.0, to=1000, textvariable=BARRIES)
-num_berries.grid(row=3,column=1)
+CARRIES = tk.IntVar()
+num_carries = ttk.Spinbox(paramFrame, from_=1.0, to=1000, textvariable=CARRIES)
+num_carries.grid(row=3,column=1)
 
 ############ SCALING FACTOR
 SCALING_FACTOR = tk.StringVar()
@@ -76,11 +92,13 @@ label_scaling_factor=tk.Label(paramFrame,font='Times',text="Scaling Factor")
 label_scaling_factor.grid(row=0,column=2)
 
 
-tk.Radiobutton(paramFrame, 
+default_rb_scale=tk.Radiobutton(paramFrame, 
               text="1",
               padx = 20, 
               variable=SCALING_FACTOR, 
-              value='1').grid(row=1,column=2)
+              value='1')
+default_rb_scale.select()
+default_rb_scale.grid(row=1,column=2)
 
 tk.Radiobutton(paramFrame, 
               text="0.8",
@@ -119,10 +137,15 @@ carrier_spacing_selected = ttk.Combobox(paramFrame,state="readonly",values=[
                                                     "120 Khz"] ,textvariable=CARRIER_SPACING)
 carrier_spacing_selected.grid(row=3,column=3)
 
-ttk.Separator(calc, orient=tk.HORIZONTAL).grid(row=2,column=0,columnspan=4, ipadx=100) 
 
 
-btn_calcular=tk.Button(paramFrame,text="Calcular",command=lambda:calcular(DIRECTION,MODULATION,BARRIES,SCALING_FACTOR,TOTAL_BW,CARRIER_SPACING))
+
+
+
+
+# get_tp(carries,mimo,nbit_modulation,overhead,scaling_factor,carrier_spacing,total_bw)
+btn_calcular=tk.Button(paramFrame,text="Calcular",command=lambda:calcular(direction=DIRECTION.get(),carries=CARRIES.get(),
+                       mimo=MIMO.get(),modulation=MODULATION.get(),scaling_factor=SCALING_FACTOR.get(),total_bw=TOTAL_BW.get(),carrier_spacing=CARRIER_SPACING.get()))
 btn_calcular.grid(row=3,column=5)
 
 
@@ -154,5 +177,12 @@ label_output_throughput.grid(row=4,column=0)
 
 paramFrame.grid(row=0,column=0)
 outputFrame.grid(row=1,column=0)
-calc.mainloop()
 
+#Definindo valores inciais padrões
+mimo_select.current(1)
+carrier_spacing_selected.current(0)
+modulation_selected.current(2)
+num_carries.set(1)
+total_bw.set(100)
+
+calc.mainloop()

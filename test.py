@@ -6,6 +6,6 @@ from ultil import get_tp
  
 class TestCalculadora(unittest.TestCase):
     def test_example1_result(self):
-        self.assertEqual(get_tp(1,2,6,0.14,1,273,30,100),876.375045)
+        self.assertEqual(get_tp(1,2,6,0.14,1,30,100),876.375045)
     def test_example2_result(self):
-        self.assertNotAlmostEqual(get_tp(1,4,8,0.14,1,160,30,100),1369.67)
+        self.assertNotAlmostEqual(get_tp(1,4,8,0.14,1,30,100),1369.67)
