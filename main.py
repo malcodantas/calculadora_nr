@@ -138,14 +138,9 @@ carrier_spacing_selected = ttk.Combobox(paramFrame,state="readonly",values=[
 carrier_spacing_selected.grid(row=3,column=3)
 
 
-
-
-
-
-
 # get_tp(carries,mimo,nbit_modulation,overhead,scaling_factor,carrier_spacing,total_bw)
 btn_calcular=tk.Button(paramFrame,text="Calcular",command=lambda:calcular(direction=DIRECTION.get(),carries=CARRIES.get(),
-                       mimo=MIMO.get(),modulation=MODULATION.get(),scaling_factor=SCALING_FACTOR.get(),total_bw=TOTAL_BW.get(),carrier_spacing=CARRIER_SPACING.get()))
+                       mimo=MIMO.get(),modulation=MODULATION.get(),scaling_factor=SCALING_FACTOR.get(),total_bw=TOTAL_BW.get(),carrier_spacing=CARRIER_SPACING.get(),label_output_throughput=label_output_throughput))
 btn_calcular.grid(row=3,column=5)
 
 
@@ -161,11 +156,6 @@ label_output_nPRB=tk.Label(outputFrame,font='Times',text="Number of PRBs")
 label_output_Ts=tk.Label(outputFrame,font='Times',text="Time of symbol")
 label_output_throughput=tk.Label(outputFrame,font='Times',text="Throughput")
 
-# label_output_mi.grid(row=0,column=0)
-# label_output_frequency_range.grid(row=0,column=1)
-# label_output_nPRB.grid(row=0,column=2)
-# label_output_Ts.grid(row=0,column=3)
-# label_output_throughput.grid(row=0,column=4)
 
 label_output_mi.grid(row=0,column=0)
 label_output_frequency_range.grid(row=1,column=0)
@@ -180,7 +170,7 @@ outputFrame.grid(row=1,column=0)
 
 #Definindo valores inciais padrões
 mimo_select.current(1)
-carrier_spacing_selected.current(0)
+carrier_spacing_selected.current(1)
 modulation_selected.current(2)
 num_carries.set(1)
 total_bw.set(100)

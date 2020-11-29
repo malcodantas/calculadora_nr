@@ -1,5 +1,5 @@
 import pandas as pd
-import math
+import math,re
 NPRB_TABLE=pd.DataFrame({
     "5m":[25,11,None],
     "10m":[52,24,11],
@@ -14,15 +14,41 @@ NPRB_TABLE=pd.DataFrame({
     "90m":[None,245,121],
     "100m":[None,273,135]
 })
+
+def get_mimo_value(mimo):
+    value = int(mimo.split('x')[1])
+    return value
+
+def get_nbit_modulation(modulation):
+    modulation=modulation.lower()
+
+    if modulation=='qpsk':
+        return 2
+    else:
+        QAM=int(re.sub("qam",'',modulation))
+        n_bit=math.log(QAM)/math.log(2)
+        return n_bit
+
+def get_carrier_spacing_value(carrier_spacing):
+    return int(carrier_spacing.split(' ')[0])
+
+def get_overhead():
+    return 0.14
 # def calcular(direction,carries,mimo,modulation,scaling_factor,total_bw,carrier_spacing):
+    # get_tp(carries,mimo,nbit_modulation,overhead,scaling_factor,carrier_spacing,total_bw)
 
 def calcular(**kwargs):
-    print(kwargs)
-    # get_tp(1,2,6,0.14,1,30,100)
-    
-
-
-
+    carries=kwargs['carries']
+    mimo=get_mimo_value(kwargs['mimo'])
+    nbit_modulation=get_nbit_modulation(kwargs['modulation'])
+    scaling_factor=int(kwargs['scaling_factor'])
+    total_bw=int(kwargs['total_bw'])
+    carrier_spacing=get_carrier_spacing_value(kwargs['carrier_spacing'])
+    overhead=get_overhead()
+    # print(carries,mimo,nbit_modulation,overhead,scaling_factor,carrier_spacing,total_bw)
+    result=get_tp(carries,mimo,nbit_modulation,overhead,scaling_factor,carrier_spacing,total_bw)
+    label_output_throughput=kwargs['label_output_throughput']
+    return result
 
 def get_bw_prb(mi,total_bw):
     """
@@ -58,11 +84,16 @@ def get_tp(carries,mimo,nbit_modulation,overhead,scaling_factor,carrier_spacing,
         carrier_spacing : Espaço entre as subportadoras em Khz
         total_bw : em Mhz
     """
+    result={}
     mi=get_mi(carrier_spacing)
     nPRB=get_bw_prb(carrier_spacing,total_bw)
     Rmax=948/1024
     Ts  = (10**(-3))/(14*(2**mi))
     all_carries_tp=carries*mimo*nbit_modulation*Rmax*scaling_factor*((nPRB*12)/Ts)*(1-overhead)
     all_carries_tp=10**(-6)*all_carries_tp
-    return all_carries_tp
-
+    
+    result['throughput'] = all_carries_tp
+    result['mi']=mi
+    result['nPRB']=nPRB
+    result['ts']=Ts
+    return result
