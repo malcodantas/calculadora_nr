@@ -273,7 +273,7 @@ if __name__ == "__main__":
 
     btn_calcular=tk.Button(paramFrame,text="Calcular",command=lambda:APP.calcular(direction=DIRECTION.get(),fr=FR.get(),carries=CARRIES.get(),
                        mimo=MIMO.get(),modulation=MODULATION.get(),scaling_factor=SCALING_FACTOR.get(),total_bw=TOTAL_BW.get(),carrier_spacing=CARRIER_SPACING.get()))
-    btn_calcular.grid(row=3,column=6)
+    btn_calcular.grid(row=4,column=6)
 
 
 
@@ -284,8 +284,8 @@ if __name__ == "__main__":
     label_output_mi=tk.Label(outputFrame,font='Times',text="Mi")
     label_output_nPRB=tk.Label(outputFrame,font='Times',text="Number of PRBs")
     label_output_Ts=tk.Label(outputFrame,font='Times',text="Time of symbol")
-    label_output_throughput=tk.Label(outputFrame,font='Times')
-    label_overhead=tk.Label(outputFrame,font='Times')
+    label_output_throughput=tk.Label(outputFrame,font='Times',text='Throughput')
+    label_overhead=tk.Label(outputFrame,font='Times',text='OH')
 
 
 
